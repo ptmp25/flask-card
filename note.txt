@@ -1,0 +1,35 @@
+CREATE TABLE words (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    term VARCHAR(255) NOT NULL,
+    definition TEXT NOT NULL,
+    pronounciation VARCHAR(255)
+);
+
+
+The SM-2 algorithm is a method used in spaced repetition systems to calculate the interval of time between reviews of a piece of information, such as a flashcard. The algorithm takes into account the quality of the last recall and the number of repetitions to calculate the next review date.
+
+The provided PHP code does not implement the SM-2 algorithm. It fetches a word and three other random words from a database, displays the term of the main word, and then shuffles and displays the definitions of all four words.
+
+To apply the SM-2 algorithm, you would need to track the quality of recall and the number of repetitions for each word, and use these values to calculate the next review date. This would require modifications to both the database structure and the PHP code.
+
+Here is a simplified pseudocode for implementing SM-2:
+
+Add fields to the database for each word to track the quality of the last recall (e.g., recall_quality) and the number of repetitions (e.g., repetitions).
+When fetching words from the database, also fetch the recall_quality and repetitions for each word.
+After the user reviews a word, update the recall_quality based on the user's performance.
+Increment the repetitions count.
+Calculate the next review date using the SM-2 algorithm and update this in the database.
+When fetching words for review, prioritize words whose next review date is due.The SM-2 algorithm is a method used in spaced repetition systems to calculate the interval of time between reviews of a piece of information, such as a flashcard. The algorithm takes into account the quality of the last recall and the number of repetitions to calculate the next review date.
+
+The provided PHP code does not implement the SM-2 algorithm. It fetches a word and three other random words from a database, displays the term of the main word, and then shuffles and displays the definitions of all four words.
+
+To apply the SM-2 algorithm, ..... the quality of recall and the number of repetitions for each word, and use these values to calculate the next review date. This would require modifications to both the database structure and the PHP code.
+
+Here is a simplified pseudocode for implementing SM-2:
+
+Add fields to the database for each word to track the quality of the last recall (e.g., recall_quality) and the number of repetitions (e.g., repetitions).
+When fetching words from the database, also fetch the recall_quality and repetitions for each word.
+After the user reviews a word, update the recall_quality based on the user's performance.
+Increment the repetitions count.
+Calculate the next review date using the SM-2 algorithm and update this in the database.
+When fetching words for review, prioritize words whose next review date is due.
