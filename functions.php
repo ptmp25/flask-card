@@ -22,18 +22,51 @@ function getWordToReview()
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 
-function updateReview($wordId, $intervalDays)
+function getRepetitionNumber($wordId)
 {
     global $db;
 
-    $nextReviewDate = date('Y-m-d H:i:s', strtotime("+{$intervalDays} days"));
+    $query = $db->prepare("SELECT repetition_number FROM vocabulary WHERE id = :wordId");
+    $query->bindParam(':wordId', $wordId);
+    $query->execute();
 
-    $query = $db->prepare("UPDATE vocabulary SET last_reviewed = NOW(), next_review = :nextReview, interval_days = :intervalDays WHERE id = :wordId");
+    return $query->fetch(PDO::FETCH_COLUMN);
+}
+
+function increaseRepetition($wordId) 
+{
+    global $db;
+
+    $query = $db->prepare("UPDATE vocabulary SET repetition_number = repetition_number + 1 WHERE id = :wordId");
+    $query->bindParam(':wordId', $wordId);
+    $query->execute();
+
+}
+
+function updateReview($wordId)
+{
+    global $db;
+
+    increaseRepetition($wordId);
+
+    // Assuming initial interval is stored in minutes
+    $initialIntervalMinutes = 5; // Example: 1 day in minutes
+    $repetitionNumber = getRepetitionNumber($wordId); // Implement a function to retrieve repetition number
+
+    // Calculate the next interval in minutes
+    $nextIntervalMinutes = $initialIntervalMinutes * (2 ** ($repetitionNumber - 1));
+
+    // Calculate the next review date
+    $nextReviewDate = date('Y-m-d H:i:s', strtotime("+{$nextIntervalMinutes} minutes"));
+
+    // Update the database with the new review information
+    $query = $db->prepare("UPDATE vocabulary SET last_reviewed = NOW(), next_review = :nextReview, repetition_number = :repetitionNumber WHERE id = :wordId");
     $query->bindParam(':nextReview', $nextReviewDate);
-    $query->bindParam(':intervalDays', $intervalDays);
+    $query->bindParam(':repetitionNumber', $repetitionNumber);
     $query->bindParam(':wordId', $wordId);
     $query->execute();
 }
+
 
 function getOtherDefinitions($wordId, $num)
 {
@@ -67,8 +100,8 @@ function getCorrectDefinition($wordId)
     return $query->fetch(PDO::FETCH_COLUMN);
 }
 
-
-function fetchWord($wordId){
+function fetchWord($wordId)
+{
     global $db;
 
     $query = $db->prepare("SELECT * FROM vocabulary WHERE id = :wordId");
@@ -76,4 +109,13 @@ function fetchWord($wordId){
     $query->execute();
 
     return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+function resetReview($wordId)
+{
+    global $db;
+
+    $query = $db->prepare("UPDATE vocabulary SET last_reviewed = NULL, next_review = NULL, repetition_number = 0 WHERE id = :wordId");
+    $query->bindParam(':wordId', $wordId);
+    $query->execute();
 }

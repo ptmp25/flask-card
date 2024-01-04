@@ -12,9 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Display the result
     echo "Your answer is " . ($isCorrect ? "correct" : "incorrect") . "!";
     if ($isCorrect) {
-        updateReview($wordId, 1);
+        updateReview($wordId);
     } else{
         // echo $chosenIndex . ' ' . $word['id'];
+        resetReview($$wordId);
     }
     // echo $word['word'] . ':' . $word['definition'] . "\n"; 
     echo "<a href=\"card.php\">Next </a>";

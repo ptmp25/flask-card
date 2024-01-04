@@ -3,8 +3,7 @@ CREATE TABLE vocabulary (
     word VARCHAR(255) NOT NULL,
     definition TEXT NOT NULL,
     last_reviewed DATETIME,
-    next_review DATETIME,
-    
+    next_review DATETIME,    
     repetition_number INT,
-    interval INT,
+    interval_time INT,
 );
