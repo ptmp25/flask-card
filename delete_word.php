@@ -11,7 +11,7 @@ try {
 // Assuming you have a PDO instance $db
 $word_id = $_POST['word_id'];
 
-$sql = "DELETE FROM words WHERE id = :word_id";
+$sql = "DELETE FROM vocabulary WHERE id = :word_id";
 $stmt = $db->prepare($sql);
 
 $stmt->bindParam(':word_id', $word_id);

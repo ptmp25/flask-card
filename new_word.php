@@ -9,13 +9,13 @@ try {
 }
 
 // Assuming you have a PDO instance $db
-$term = $_POST['term'];
+$word = $_POST['word'];
 $definition = $_POST['definition'];
 
-$sql = "INSERT INTO words (term, definition) VALUES (:term, :definition)";
+$sql = "INSERT INTO vocabulary (word, definition, repetition_number) VALUES (:word, :definition, 0)";
 $stmt = $db->prepare($sql);
 
-$stmt->bindParam(':term', $term);
+$stmt->bindParam(':word', $word);
 $stmt->bindParam(':definition', $definition);
 
 if ($stmt->execute())
