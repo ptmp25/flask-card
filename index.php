@@ -23,9 +23,21 @@ $words = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+
+    <form action="new_word.php" method="post">
+        <label for="word">Word</label>
+        <input type="text" name="word" id="word">
+        <label for="definition">Definition</label>
+        <input type="text" name="definition" id="definition">
+        <label for="Sound">Sound</label>
+        <input type="file" name="sound" id="sound">
+        <input type="submit" value="Add word">
+    </form>
+
     <table>
         <tr>
             <th>Word</th>
+            <th>Pronounce</th>
             <th>Definition</th>
             <th>Action</th>
         </tr>
@@ -33,6 +45,10 @@ $words = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tr>
                 <td>
                     <?php echo $word['word']; ?>
+                </td>
+                <td>
+                    <button onclick="playSound('audio/uk_sound.mp3')">UK</button>
+                    <button>us</button>
                 </td>
                 <td>
                     <?php echo $word['definition']; ?>
@@ -46,13 +62,13 @@ $words = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tr>
         <?php endforeach; ?>
     </table>
-    <form action="new_word.php" method="post">
-        <label for="word">Word</label>
-        <input type="text" name="word" id="word">
-        <label for="definition">Definition</label>
-        <input type="text" name="definition" id="definition">
-        <input type="submit" value="Add word">
-    </form>
 </body>
 
 </html>
+
+<script>
+    function playSound(soundFile) {
+        var audio = new Audio(soundFile);
+        audio.play();
+    }
+</script>
