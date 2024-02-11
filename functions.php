@@ -50,7 +50,7 @@ function updateReview($wordId)
     increaseRepetition($wordId);
 
     // Assuming initial interval is stored in minutes
-    $initialIntervalMinutes = 5; // Example: 1 day in minutes
+    $initialIntervalMinutes = 1; // Example: 1 day in minutes
     $repetitionNumber = getRepetitionNumber($wordId); // Implement a function to retrieve repetition number
 
     // Calculate the next interval in minutes

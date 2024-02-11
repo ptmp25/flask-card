@@ -11,17 +11,8 @@ try {
 $stmt = $db->prepare("SELECT * FROM vocabulary");
 $stmt->execute();
 $words = $stmt->fetchAll(PDO::FETCH_ASSOC);
+include('header.html');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>New word</title>
-</head>
-
 <body>
 
     <form action="new_word.php" method="post">
