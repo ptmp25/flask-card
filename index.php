@@ -11,7 +11,7 @@ try {
 $stmt = $db->prepare("SELECT * FROM vocabulary");
 $stmt->execute();
 $words = $stmt->fetchAll(PDO::FETCH_ASSOC);
-include('header.html');
+include('header.php');
 ?>
 <body>
 
