@@ -26,7 +26,7 @@ function getRepetitionNumber($wordId)
 {
     global $db;
 
-    $query = $db->prepare("SELECT repetition_number FROM vocabulary WHERE id = :wordId");
+    $query = $db->prepare("SELECT repetitions FROM vocabulary WHERE id = :wordId");
     $query->bindParam(':wordId', $wordId);
     $query->execute();
 
@@ -37,7 +37,7 @@ function increaseRepetition($wordId)
 {
     global $db;
 
-    $query = $db->prepare("UPDATE vocabulary SET repetition_number = repetition_number + 1 WHERE id = :wordId");
+    $query = $db->prepare("UPDATE vocabulary SET repetitions = repetitions + 1 WHERE id = :wordId");
     $query->bindParam(':wordId', $wordId);
     $query->execute();
 
@@ -60,7 +60,7 @@ function updateReview($wordId)
     $nextReviewDate = date('Y-m-d H:i:s', strtotime("+{$nextIntervalMinutes} minutes"));
 
     // Update the database with the new review information
-    $query = $db->prepare("UPDATE vocabulary SET last_reviewed = NOW(), next_review = :nextReview, repetition_number = :repetitionNumber WHERE id = :wordId");
+    $query = $db->prepare("UPDATE vocabulary SET last_reviewed = NOW(), next_review = :nextReview, repetitions = :repetitionNumber WHERE id = :wordId");
     $query->bindParam(':nextReview', $nextReviewDate);
     $query->bindParam(':repetitionNumber', $repetitionNumber);
     $query->bindParam(':wordId', $wordId);
@@ -115,7 +115,7 @@ function resetReview($wordId)
 {
     global $db;
 
-    $query = $db->prepare("UPDATE vocabulary SET last_reviewed = NULL, next_review = NULL, repetition_number = 0 WHERE id = :wordId");
+    $query = $db->prepare("UPDATE vocabulary SET last_reviewed = NULL, next_review = NULL, repetitions = 0 WHERE id = :wordId");
     $query->bindParam(':wordId', $wordId);
     $query->execute();
 }

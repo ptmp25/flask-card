@@ -57,7 +57,7 @@ function register(){
     }
 
     if (count($errors) == 0) {
-        $password = md5($password_1);
+        $password = password_hash($password_1, PASSWORD_DEFAULT);
         $query = "INSERT INTO users (username, password, email) VALUES('$username', '$password', '$email')";
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
@@ -125,12 +125,8 @@ function login()
                 // User found and password matches
                 $_SESSION['user'] = $user;
                 $_SESSION['success'] = "You are now logged in";
+                header('Location: index.php');
 
-                if ($user['user_type'] == 'admin') {
-                    header('Location: ../admin/home.php');
-                } else {
-                    header('Location: ../index.php');
-                }
             } else {
                 array_push($errors, "Wrong username/password combination");
             }

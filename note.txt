@@ -1,9 +1,22 @@
-CREATE TABLE vocabulary (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    word VARCHAR(255) NOT NULL,
-    definition TEXT NOT NULL,
-    last_reviewed DATETIME,
-    next_review DATETIME,    
-    repetition_number INT,
-    interval_time INT,
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL  -- Store the hashed and salted password
 );
+
+CREATE TABLE topics (
+    topic_id INT AUTO_INCREMENT PRIMARY KEY,
+    topic VARCHAR(255) NOT NULL UNIQUE,
+    user_id VARCHAR(255) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE words (
+    word_id INT AUTO_INCREMENT PRIMARY KEY,
+    word VARCHAR(255) NOT NULL UNIQUE,
+repetitions INT,
+review_time TIME,
+    description TEXT
+);
+
