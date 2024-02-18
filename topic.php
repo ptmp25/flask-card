@@ -24,6 +24,7 @@ include('header.php');
 
     <form action="new_word.php" method="post">
         <!-- <?php echo $topic_id; ?> -->
+        <input type="hidden" name="topic_id" value="<?= $topic_id ?>"/>
         <label for="word">Word</label>
         <input type="text" name="word" id="word">
         <label for="description">Description</label>
@@ -45,10 +46,10 @@ include('header.php');
                 <td>
                     <?php echo $line['word']; ?>
                 </td>
-                 <td>
+                 <!-- <td>
                     <button onclick="playSound('audio/uk_sound.mp3')">UK</button>
                     <button>us</button>
-                </td> 
+                </td>  -->
                 <td>
                     <?php echo $line['description']; ?>
                 </td>

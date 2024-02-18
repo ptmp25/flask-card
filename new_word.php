@@ -8,13 +8,21 @@ if (!isLoggedIn()) {
 $word = $_POST['word'];
 $description = $_POST['description'];
 $user_id = $_SESSION['user']['user_id'];
+$topic_id = $_POST['topic_id'];
+// note change to the following line
+// sometime there is a problem with the topic_id being null, so we add it as an empty string if not set
+if (!$topic_id) {
+    header("Location: index.php");
+    exit();
+}
 
-$sql = "INSERT INTO words (word, description, user_id, repetitions) VALUES (:word, :description, :user_id, 0)";
+$sql = "INSERT INTO words (word, description, user_id, topic_id, repetitions) VALUES (:word, :description, :user_id, :topic_id, 0)";
 $stmt = $db->prepare($sql);
 $stmt->bindParam(':word', $word);
 $stmt->bindParam(':description', $description);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->bindParam(':topic_id', $topic_id, PDO::PARAM_INT);
 if ($stmt->execute())
-    header("Location: index.php");
+    header("Location: topic.php?topic_id=" . $topic_id);
 
 ?>

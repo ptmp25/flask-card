@@ -8,15 +8,17 @@ CREATE TABLE users (
 CREATE TABLE topics (
     topic_id INT AUTO_INCREMENT PRIMARY KEY,
     topic VARCHAR(255) NOT NULL UNIQUE,
-    user_id VARCHAR(255) NOT NULL,
+    user_id VARCHAR(255) foreign KEY NOT NULL,
     description TEXT
 );
 
 CREATE TABLE words (
     word_id INT AUTO_INCREMENT PRIMARY KEY,
+    topic_id INT foreign KEY,
+    topic_id INT foreign KEY,
     word VARCHAR(255) NOT NULL UNIQUE,
-repetitions INT,
-review_time TIME,
+    repetitions INT,
+    review_time TIME,
     description TEXT
 );
 
