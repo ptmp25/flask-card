@@ -16,7 +16,7 @@ if (isset($_POST['add_topic_btn'])) {
     // echo var_dump($_POST);
     try {
         $stmt->execute();
-        header("Location: topic.php");
+        header("Location: topic.php?topic_id=" . $db->lastInsertId());
     } catch (PDOException $e) {
         echo ("Error: " . $e->getMessage());
     }

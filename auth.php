@@ -12,13 +12,30 @@ $username = "";
 $email = "";
 $errors = array();
 $success = "";
+$key = "encryptionkey";
 
 if (isset($_POST['register_btn'])) {
     register();
-} 
+}
+
+
+function encryptPassword($password, $key)
+{
+    $encrypted = '';
+    for ($i = 0; $i < strlen($password); $i++) {
+        $encrypted .= $password[$i] ^ $key[$i % strlen($key)];
+    }
+    return base64_encode($encrypted);
+}
+
+function passwordsMatch($newPassword, $oldEncryptedPassword, $key)
+{
+    $newEncryptedPassword = encryptPassword($newPassword, $key);
+    return hash_equals($oldEncryptedPassword, $newEncryptedPassword);
+}
 
 function register(){
-    global $db, $errors, $username, $success;
+    global $db, $errors, $username, $success, $key;
     $username = e($_POST['username']);
     $email = e($_POST['email']);
     $password_1 = e($_POST['password_1']);
@@ -57,7 +74,7 @@ function register(){
     }
 
     if (count($errors) == 0) {
-        $password = password_hash($password_1, PASSWORD_DEFAULT);
+        $password = encryptPassword($password_1, $key);
         $query = "INSERT INTO users (username, password, email) VALUES('$username', '$password', '$email')";
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
@@ -96,7 +113,7 @@ if (isset($_GET['logout'])) {
 // LOGIN USER
 function login()
 {
-    global $db, $username, $errors;
+    global $db, $username, $errors, $key;
     $errors = array();
     // Grab form values
     $username = e($_POST['username']);
@@ -121,7 +138,7 @@ function login()
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            if (password_verify($password, $user['password'])) {
+            if (passwordsMatch($password, $user['password'], $key)) {
                 // User found and password matches
                 $_SESSION['user'] = $user;
                 $_SESSION['success'] = "You are now logged in";
