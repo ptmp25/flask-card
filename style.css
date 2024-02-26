@@ -7,3 +7,30 @@ main {
 .no-des {
     text-decoration: none;
 }
+
+.card {
+    display: inline-block;
+    width: 400px;
+    height: 300px;
+    margin: 40px 0;
+    perspective: 600px;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+.detail {
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.front {
+    display: flex;
+}
+
+.back {
+    display: none;
+}

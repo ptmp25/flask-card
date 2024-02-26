@@ -47,7 +47,7 @@ include('header.php');
         </script>
 
         </form>
-        <button><a href="review.php" class="no-des">Review</a></button>
+        <button><a href="review.php?topic_id=<?php echo $topic_id;?>" class="no-des">Review</a></button>
     
         <table>
             <tr>

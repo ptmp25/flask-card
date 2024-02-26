@@ -16,7 +16,7 @@ if (!$topic_id) {
     exit();
 }
 
-$sql = "INSERT INTO words (word, description, user_id, topic_id, repetitions) VALUES (:word, :description, :user_id, :topic_id, 0)";
+$sql = "INSERT INTO words (word, description, user_id, topic_id, repetitions, review_time) VALUES (:word, :description, :user_id, :topic_id, 0, 0)";
 $stmt = $db->prepare($sql);
 $stmt->bindParam(':word', $word);
 $stmt->bindParam(':description', $description);
