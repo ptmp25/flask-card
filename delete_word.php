@@ -10,12 +10,13 @@ try {
 
 // Assuming you have a PDO instance $db
 $word_id = $_POST['word_id'];
+$topic_id = $_POST['topic_id'];
 
-$sql = "DELETE FROM vocabulary WHERE id = :word_id";
+$sql = "DELETE FROM words WHERE word_id = :word_id";
 $stmt = $db->prepare($sql);
 
 $stmt->bindParam(':word_id', $word_id);
 
 if ($stmt->execute())
-    header("Location: index.php");
+    header("Location: topic.php?topic_id=" . $topic_id);
 ?>

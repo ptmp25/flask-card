@@ -32,7 +32,20 @@ include('header.php');
             <input type="text" name="description" id="description">
             <!-- <label for="Sound">Sound</label>
             <input type="file" name="sound" id="sound"> -->
-            <input type="submit" value="Add word">
+            <input type="submit" value="Add word" onclick="return confirmNewWord()">
+        </form>
+
+        <script>
+            function confirmNewWord() {
+                var wordInput = document.getElementById("word").value;
+                var existingWords = <?php echo json_encode(array_column($words, 'word')); ?>;
+                if (existingWords.includes(wordInput)) {
+                    return confirm("The word already exists. Are you sure you want to add it to the topic?");
+                }
+                return true;
+            }
+        </script>
+
         </form>
         <button><a href="review.php" class="no-des">Review</a></button>
     
@@ -58,7 +71,14 @@ include('header.php');
                     <td>
                         <form action="delete_word.php" method="post">
                             <input type="hidden" name="word_id" value="<?php echo $line['word_id']; ?>">
-                            <input type="submit" value="Delete">
+                            <input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>">
+                            <input type="submit" value="Delete" onclick="return confirmDelete()">
+
+                            <script>
+                                function confirmDelete() {
+                                    return confirm("Are you sure you want to delete?");
+                                }
+                            </script>
                         </form>
                     </td>
                 </tr>
