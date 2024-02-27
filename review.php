@@ -15,39 +15,35 @@ if (!$stmt->execute()) {
     exit();
 }
 $words = $stmt->fetchAll(PDO::FETCH_ASSOC);
-include('header.php');
 ?>
 
+<head>
+    <!-- <link rel="stylesheet" href="basic.css"> -->
+</head>
+
 <body>
+    <?php include('header.php'); ?>
     <div class="card">
-        <div class="front detail">
+        <div class="detail front">
             <?php
             $randomIndex = array_rand($words);
             $randomWord = $words[$randomIndex];
             echo $randomWord['word'];
             ?>
         </div>
-        <div class="back detail">
+        <div class="detail back">
             <?php
             echo $randomWord['description'];
             ?>
         </div>
     </div>
     <script>
-        // document.querySelector(".card").addEventListener("click", function() {
-        //         document.querySelector(".front").style.display = "none";
-        //         document.querySelector(".back").style.display = "flex";
-        //     });
+        var cards = document.querySelectorAll('.card');
 
-        document.querySelector(".card").addEventListener("click", function () {
-            if (document.querySelector(".front").style.display === "flex") {
-                document.querySelector(".front").style.display = "none";
-                document.querySelector(".back").style.display = "flex";
-            }
-            else {
-                document.querySelector(".front").style.display = "flex";
-                document.querySelector(".back").style.display = "none";
-            }
+        [...cards].forEach((card) => {
+            card.addEventListener('click', function () {
+                card.classList.toggle('is-flipped');
+            });
         });
     </script>
 </body>
