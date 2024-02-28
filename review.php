@@ -37,15 +37,7 @@ $words = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
         </div>
     </div>
-    <script>
-        var cards = document.querySelectorAll('.card');
-
-        [...cards].forEach((card) => {
-            card.addEventListener('click', function () {
-                card.classList.toggle('is-flipped');
-            });
-        });
-    </script>
+    <script src="flash_card.js"></script>
 </body>
 
 </div>
